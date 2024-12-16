@@ -15,6 +15,9 @@ import AdminNavbar from './admin/component/Navbar/Navbar'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SideBar from './admin/component/SideBar/SideBar'
+import Menu from './pages/Menu'
+import ProtectedRoute from './hook/ProtectedRoute'
+import NotFound404 from './component/404/404'
 
 
 
@@ -24,27 +27,48 @@ const App = () => {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith('/admin');
   return (
-    <> {showLogin ? <LoginPopup setShowLogin={setShowLogin} /> : null} 
-    <div className='app'> 
-      <ToastContainer /> 
-      {isAdminRoute ? <AdminNavbar /> : <Navbar setShowLogin={setShowLogin} />} 
-      <hr /> 
-      <div className="app-content"> 
-        {isAdminRoute && <SideBar />}
-         <Routes>
-           <Route path='/' element={<Home />} /> 
-           <Route path='/cart' element={<Cart />} /> 
-           <Route path='/order' element={<PlaceOrder />} /> 
-           <Route path='/verify' element={<Verify />} />
-            <Route path='/myorder' element={<MyOrder />} /> 
-            <Route path='/admin/add' element={<Add />} /> 
-            <Route path='/admin/list' element={<List />} /> 
-            <Route path='/admin/order' element={<Order />} /> 
-            </Routes> 
-            </div> 
-            </div> 
-            <Footer /> 
-            </>
+    <> {showLogin ? <LoginPopup setShowLogin={setShowLogin} /> : null}
+      <div className='app'>
+        <ToastContainer />
+        {isAdminRoute ? <AdminNavbar /> : <Navbar setShowLogin={setShowLogin} />}
+        <hr />
+
+        <div className="">
+          {isAdminRoute && <SideBar />}
+          <Routes>
+            <Route path='/404' element={<NotFound404 />} />
+
+            <Route path='/' element={<Home />} />
+            <Route path='/cart' element={<Cart />} />
+            <Route path='/order' element={<PlaceOrder />} />
+            <Route path='/menu' element={<Menu />} />
+            <Route path='/verify' element={<Verify />} />
+            <Route path='/myorder' element={<MyOrder />} />
+
+            <Route path="/admin/add" element={
+              <ProtectedRoute allowedRoles={[1]}>
+                <Add />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/list" element={
+              <ProtectedRoute allowedRoles={[1]}>
+                <List />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin/order" element={
+              <ProtectedRoute allowedRoles={[1]}>
+                <Order />
+              </ProtectedRoute>
+            } />
+
+            {/* Route fallback: Hiển thị trang 404 */}
+            <Route path="*" element={<NotFound404 />} />
+          </Routes>
+        </div>
+
+      </div >
+      <Footer />
+    </>
   )
 }
 

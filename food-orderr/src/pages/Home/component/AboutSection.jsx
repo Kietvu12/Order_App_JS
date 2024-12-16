@@ -1,10 +1,37 @@
-
-import { Check } from 'lucide-react';
-import { food } from '../../../assets/assets';
+import { useEffect, useRef, useState } from "react";
+import { Check } from "lucide-react";
+import { food } from "../../../assets/assets";
 
 export default function AboutSection() {
+    const sectionRef = useRef(null);
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                const entry = entries[0];
+                setIsVisible(entry.isIntersecting);
+            },
+            {
+                threshold: 0.4, // Kích hoạt khi 20% phần tử nằm trong viewport
+            }
+        );
+
+        if (sectionRef.current) {
+            observer.observe(sectionRef.current);
+        }
+
+        return () => {
+            if (sectionRef.current) observer.unobserve(sectionRef.current);
+        };
+    }, []);
+
     return (
-        <div className="container mx-auto px-4 py-16">
+        <div
+            ref={sectionRef}
+            className={`container mx-auto px-4 py-16 transition-opacity duration-1000 ${isVisible ? "animate-fade-up opacity-100" : "opacity-0"
+                }`}
+        >
             <div className="grid md:grid-cols-2 gap-8 md:gap-16 items-center">
                 {/* Left Column - Image */}
                 <div className="relative">
@@ -71,4 +98,3 @@ export default function AboutSection() {
         </div>
     );
 }
-

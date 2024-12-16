@@ -1,14 +1,65 @@
-.food-display{
-    margin-top:30px;
+.food-display {
+    margin-top: 30px;
 }
-.food-display h2{
+
+.food-display h2 {
     font-size: max(2vw, 24px);
     font-weight: 600;
 }
-.food-display-list{
+
+.food-display-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     margin-top: 30px;
     gap: 30px;
     row-gap: 50px;
+}
+
+/* Hiển thị khi không có món ăn */
+.empty-text {
+    text-align: center;
+    color: #888;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+/* Loading Text */
+.loading-text {
+    text-align: center;
+    color: #FF6B00;
+    font-size: 18px;
+    font-weight: bold;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Hiệu ứng xuất hiện cho món ăn */
+.food-display-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    animation: fadeInUp 1s ease-in-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
