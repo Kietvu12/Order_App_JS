@@ -7,7 +7,7 @@ const FoodItem = ({ id, name, price, description, image }) => {
     return (
         <div className='food-item'>
             <div className="relative h-48 overflow-hidden">
-                <img src={url + "image/" + image} alt="" className='  h-full object-cover group-hover:scale-110 transition-transform duration-300' />
+                <img src={url + "image/" + image} alt="" className=' w-full h-full object-cover group-hover:scale-110 transition-transform duration-300' />
                 {!cartItem[id]
                     ? <img className='add' onClick={() => addToCart(id)} src={assets.add_icon_white} alt='' />
                     : <div className='food-item-counter'>

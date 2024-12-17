@@ -1,10 +1,11 @@
 import axios from 'axios';
-const API_URL = "http://localhost:4000/api/user"; // URL cơ bản cho các yêu cầu
+const API_URL = "http://localhost:4000/api/user"; 
 
 const ApiLogin = {
     login: async (data) => {
         try {
             const response = await axios.post(`${API_URL}/login`, data);
+
             return response.data;
         } catch (error) {
             console.error("Login API Error: ", error);
