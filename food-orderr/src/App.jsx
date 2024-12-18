@@ -18,6 +18,7 @@ import SideBar from './admin/component/SideBar/SideBar'
 import Menu from './pages/Menu'
 import ProtectedRoute from './hook/ProtectedRoute'
 import NotFound404 from './component/404/404'
+import AdminWrapper from './hook/AdminWrapper'
 
 
 
@@ -27,16 +28,16 @@ const App = () => {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith('/admin');
   return (
-    <> {showLogin ? <LoginPopup setShowLogin={setShowLogin} /> : null}
+    <>
+      {showLogin ? <LoginPopup setShowLogin={setShowLogin} /> : null}
       <div className='app'>
         <ToastContainer />
         {isAdminRoute ? <AdminNavbar /> : <Navbar setShowLogin={setShowLogin} />}
         <hr />
 
-        <div className="">
+        <div className="flex">
           {isAdminRoute && <SideBar />}
           <Routes>
-            <Route path='/404' element={<NotFound404 />} />
 
             <Route path='/' element={<Home />} />
             <Route path='/cart' element={<Cart />} />
@@ -45,31 +46,35 @@ const App = () => {
             <Route path='/verify' element={<Verify />} />
             <Route path='/myorder' element={<MyOrder />} />
 
-            <Route path="/admin/add" element={
-              <ProtectedRoute allowedRoles={[1]}>
-                <Add />
-              </ProtectedRoute>
-            } />
-            <Route path="/admin/list" element={
-              <ProtectedRoute allowedRoles={[1]}>
-                <List />
-              </ProtectedRoute>
-            } />
-            <Route path="/admin/order" element={
-              <ProtectedRoute allowedRoles={[1]}>
-                <Order />
-              </ProtectedRoute>
-            } />
+            <Route element={<AdminWrapper />}>
+              <Route path="/admin/add" element={
+                <ProtectedRoute allowedRoles={["admin"]}>
+                  <Add />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin/list" element={
+                <ProtectedRoute allowedRoles={["admin"]}>
+                  <List />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin/order" element={
+                <ProtectedRoute allowedRoles={["admin"]}>
+                  <Order />
+                </ProtectedRoute>
+              } />
+            </Route>
 
             {/* Route fallback: Hiển thị trang 404 */}
             <Route path="*" element={<NotFound404 />} />
+            <Route path='/404' element={<NotFound404 />} />
           </Routes>
         </div>
 
-      </div >
+      </div>
       <Footer />
     </>
-  )
+  );
+
 }
 
 export default App
