@@ -4,11 +4,10 @@ import { StoreContext } from '../../context/StoreContext';
 import FoodItem from '../FoodItem/FoodItem';
 
 const FoodDisplay = ({ category }) => {
-  const { food_list } = useContext(StoreContext);
+  const { food_list, cartItem, addToCart, removeFromCart } = useContext(StoreContext);
   const [filteredFoods, setFilteredFoods] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Lọc danh sách món ăn khi category thay đổi
   useEffect(() => {
     setLoading(true);
     const filtered = food_list.filter(
@@ -34,6 +33,9 @@ const FoodDisplay = ({ category }) => {
               description={item.description}
               price={item.price}
               image={item.image}
+              addToCart={addToCart}
+              removeFromCart={removeFromCart}
+              cartCount={cartItem[item._id]}
             />
           ))}
         </div>
