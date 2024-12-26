@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_URL = "http://localhost:4000/api/user"; 
+const API_URL = "https://ayafood.vn/api/user"; 
 
 const ApiLogin = {
     login: async (data) => {

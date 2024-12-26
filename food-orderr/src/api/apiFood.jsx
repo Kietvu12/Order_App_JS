@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:4000/api/food";
+const API_URL = "https://ayafood.vn/api/food";
 
 const ApiFood = {
     // Thêm món ăn
