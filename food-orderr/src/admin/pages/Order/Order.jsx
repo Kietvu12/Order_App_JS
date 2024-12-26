@@ -6,7 +6,7 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import { assets } from '../../assets/assets'
 
-const Order = ({url}) => {
+const Order = ({ url }) => {
   const [orders, setOrders] = useState([])
 
   const fetchAllOrders = async () => {
@@ -18,7 +18,7 @@ const Order = ({url}) => {
       toast.error("Error")
     }
   }
-  const statusHandler = async (event, orderId) =>{
+  const statusHandler = async (event, orderId) => {
     const response = await axios.post("http://localhost:4000/api/order/status", {
       orderId,
       status: event.target.value

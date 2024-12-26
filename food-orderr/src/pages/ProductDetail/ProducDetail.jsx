@@ -9,7 +9,7 @@ const ProductDetails = () => {
     const [product, setProduct] = useState(null);
     const { cartItem, addToCart, removeFromCart } = useContext(StoreContext);
     const [quantity, setQuantity] = useState(0);
-    const url = "http://localhost:4000"
+    const url = "https://ayafood.vn"
 
     useEffect(() => {
         const fetchProductDetails = async () => {

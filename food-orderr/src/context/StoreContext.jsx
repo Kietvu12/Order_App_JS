@@ -33,9 +33,14 @@ const StoreContextProvider = ({ children }) => {
     const getTotalCartAmount = () => {
         return Object.keys(cartItem).reduce((total, itemId) => {
             const itemInfo = food_list.find(product => product._id === itemId);
-            return total + (itemInfo ? itemInfo.price * cartItem[itemId] : 0);
+            if (itemInfo) {
+                return total + (itemInfo.price * cartItem[itemId]);
+            } else {
+                console.warn(`Item with ID ${itemId} not found in food list.`);
+                return total;
+            }
         }, 0);
-    };
+    }
 
     const fetchFoodList = async () => {
         try {

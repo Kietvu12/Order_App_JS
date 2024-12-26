@@ -6,7 +6,7 @@ import { MapPin, MoreVertical, Search, Edit2, Trash2 } from 'lucide-react';
 import useOutsideClick from '../../../hook/useOutsideClick';
 
 const List = () => {
-  const url = "http://localhost:4000";
+  const url = "https://ayafood.vn";
 
   const [list, setList] = useState([]);
   const [visibleMenu, setVisibleMenu] = useState(null);

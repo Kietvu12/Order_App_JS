@@ -4,13 +4,13 @@ import { StoreContext } from "../../../context/StoreContext";
 import { assets } from "../../../assets/assets";
 import "../../../component/FoodItem/FoodItem.css"
 import { useNavigate } from "react-router-dom";
-const url = "http://localhost:4000/";
+const url = "https://ayafood.vn/";
 
 const MenuGrid = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const { cartItem, addToCart, removeFromCart } = useContext(StoreContext);
-  const [quantity, setQuantity] = useState(0);
+
   const navigate = useNavigate();
   useEffect(() => {
     const fetchMenuItems = async () => {
@@ -31,6 +31,7 @@ const MenuGrid = () => {
   if (loading) return <div className="text-center">Loading...</div>;
 
   return (
+    <div className="container mx-auto px-4 py-8">
       <div className="flex items-center justify-center mb-4">
         <h2 className="text-2xl font-bold text-gray-800">Menu</h2>
       </div>
@@ -93,7 +94,7 @@ const MenuGrid = () => {
           </div>
         ))}
       </div>
-
+    </div>
   );
 };
 
