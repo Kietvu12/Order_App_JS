@@ -7,7 +7,7 @@ const StoreContextProvider = ({ children }) => {
     const [cartItem, setCartItem] = useState({});
     const [token, setToken] = useState("");
     const [food_list, setFoodList] = useState([]);
-    const url = "http://localhost:4000/";
+    const url = "https://ayafood.vn/";
 
     const addToCart = async (itemId) => {
         const newCartItem = { ...cartItem, [itemId]: (cartItem[itemId] || 0) + 1 };

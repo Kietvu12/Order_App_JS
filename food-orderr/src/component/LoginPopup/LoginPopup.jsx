@@ -7,8 +7,9 @@ import { StoreContext } from '../../context/StoreContext'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 const LoginPopup = ({ setShowLogin }) => {
+    const url = "https://ayafood.vn/";
     const navigate = useNavigate()
-    const { url, setToken } = useContext(StoreContext)
+    const { setToken } = useContext(StoreContext)
     const [currState, setCurrState] = useState("sign up")
     const [data, setData] = useState({
         name: "",
@@ -25,7 +26,9 @@ const LoginPopup = ({ setShowLogin }) => {
         let newUrl = url
         if (currState === "Login") {
             newUrl += "api/user/login"
+            console.log("data", newUrl)
         }
+
         else {
             newUrl += "api/user/register"
         }
