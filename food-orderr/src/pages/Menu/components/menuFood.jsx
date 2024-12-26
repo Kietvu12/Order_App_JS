@@ -3,14 +3,15 @@ import ApiFood from "../../../api/apiFood";
 import { StoreContext } from "../../../context/StoreContext";
 import { assets } from "../../../assets/assets";
 import "../../../component/FoodItem/FoodItem.css"
+import { useNavigate } from "react-router-dom";
 const url = "http://localhost:4000/";
 
 const MenuGrid = () => {
   const [menuItems, setMenuItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const { cartItem, addToCart, removeFromCart } = useContext(StoreContext);
-
-  // Fetch dữ liệu từ API khi component được render
+  const [quantity, setQuantity] = useState(0);
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchMenuItems = async () => {
       const response = await ApiFood.listFood();
@@ -24,21 +25,23 @@ const MenuGrid = () => {
 
     fetchMenuItems();
   }, []);
-
+  const detailFood = (_id) => {
+    navigate(`/food/${_id}`);
+  };
   if (loading) return <div className="text-center">Loading...</div>;
 
   return (
-    <div className="container mx-auto px-4 py-8">
       <div className="flex items-center justify-center mb-4">
         <h2 className="text-2xl font-bold text-gray-800">Menu</h2>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {menuItems.map((item) => (
           <div
-            key={item._id} // ID từ MongoDB
+            key={item._id}
+            onClick={() => detailFood(item._id)}
             className="group relative bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300"
           >
-            <div className="relative h-48 overflow-hidden">
+            <div className="relative h-[250px] overflow-hidden">
               <img
                 src={url + "image/" + item.image}
                 alt={item.name}
@@ -90,7 +93,7 @@ const MenuGrid = () => {
           </div>
         ))}
       </div>
-    </div>
+
   );
 };
 

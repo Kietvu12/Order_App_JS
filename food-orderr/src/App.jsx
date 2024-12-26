@@ -19,6 +19,8 @@ import Menu from './pages/Menu'
 import ProtectedRoute from './hook/ProtectedRoute'
 import NotFound404 from './component/404/404'
 import AdminWrapper from './hook/AdminWrapper'
+import AboutUs from './pages/Abuot us/AbuotUs'
+import ProductDetail from './pages/ProductDetail/ProducDetail'
 
 
 
@@ -27,54 +29,59 @@ const App = () => {
   const [showLogin, setShowLogin] = useState(false)
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith('/admin');
+  const isProductDetailRoute = location.pathname.includes('/food/');
   return (
     <>
-      {showLogin ? <LoginPopup setShowLogin={setShowLogin} /> : null}
+      {showLogin && <LoginPopup setShowLogin={setShowLogin} />}
       <div className='app'>
         <ToastContainer />
         {isAdminRoute ? <AdminNavbar /> : <Navbar setShowLogin={setShowLogin} />}
         <hr />
 
-        <div className="flex">
-          {isAdminRoute && <SideBar />}
+        {isProductDetailRoute ? (
           <Routes>
-
-            <Route path='/' element={<Home />} />
-            <Route path='/cart' element={<Cart />} />
-            <Route path='/order' element={<PlaceOrder />} />
-            <Route path='/menu' element={<Menu />} />
-            <Route path='/verify' element={<Verify />} />
-            <Route path='/myorder' element={<MyOrder />} />
-
-            <Route element={<AdminWrapper />}>
-              <Route path="/admin/add" element={
-                <ProtectedRoute allowedRoles={["admin"]}>
-                  <Add />
-                </ProtectedRoute>
-              } />
-              <Route path="/admin/list" element={
-                <ProtectedRoute allowedRoles={["admin"]}>
-                  <List />
-                </ProtectedRoute>
-              } />
-              <Route path="/admin/order" element={
-                <ProtectedRoute allowedRoles={["admin"]}>
-                  <Order />
-                </ProtectedRoute>
-              } />
-            </Route>
-
-            {/* Route fallback: Hiển thị trang 404 */}
-            <Route path="*" element={<NotFound404 />} />
-            <Route path='/404' element={<NotFound404 />} />
+            <Route path='/food/:_id' element={<ProductDetail />} />
           </Routes>
-        </div>
+        ) : (
+          <div className="flex">
+            {isAdminRoute && <SideBar />}
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/cart' element={<Cart />} />
+              <Route path='/order' element={<PlaceOrder />} />
+              <Route path='/menu' element={<Menu />} />
+              <Route path='/verify' element={<Verify />} />
+              <Route path='/myorder' element={<MyOrder />} />
+              <Route path='/about-us' element={<AboutUs />} />
+              <Route path='/food/:_id' element={<ProductDetail />} />
 
+              <Route element={<AdminWrapper />}>
+                <Route path="/admin/add" element={
+                  <ProtectedRoute allowedRoles={["admin"]}>
+                    <Add />
+                  </ProtectedRoute>
+                } />
+                <Route path="/admin/list" element={
+                  <ProtectedRoute allowedRoles={["admin"]}>
+                    <List />
+                  </ProtectedRoute>
+                } />
+                <Route path="/admin/order" element={
+                  <ProtectedRoute allowedRoles={["admin"]}>
+                    <Order />
+                  </ProtectedRoute>
+                } />
+              </Route>
+
+              <Route path="*" element={<NotFound404 />} />
+              <Route path='/404' element={<NotFound404 />} />
+            </Routes>
+          </div>
+        )}
       </div>
       <Footer />
     </>
   );
-
 }
 
-export default App
+export default App;

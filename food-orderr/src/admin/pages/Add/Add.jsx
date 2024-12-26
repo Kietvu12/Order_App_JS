@@ -1,70 +1,109 @@
-import React, { useEffect, useState } from 'react'
-import "./Add.css"
-import { assets } from '../../assets/assets'
-import axios from 'axios'
-import { toast } from 'react-toastify'
+import React, { useState } from 'react';
+import './Add.css';
+import { assets } from '../../assets/assets'; // Ensure this path is correct for your assets
+import axios from 'axios';
+import { toast } from 'react-toastify';
+
 const Add = () => {
-  const url = "http://localhost:4000"
-  const [image, setImage] = useState(false);
+  const url = "http://localhost:4000";
+  const [images, setImages] = useState([]); // State to hold the uploaded images
   const [data, setData] = useState({
     name: "",
     description: "",
     price: "",
     category: "Salad",
-  })
+  });
+
+  // Handler for text input changes
   const onChangeHandler = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setData(data => ({ ...data, [name]: value }))
-  }
-  useEffect(() => {
-    console.log(data)
-  }, [data]
-  )
-  const onSubmitHandler = async (event) => {
-    event.preventDefault()
-    const formData = new FormData()
-    formData.append("name", data.name)
-    formData.append("description", data.description)
-    formData.append("price", Number(data.price))
-    formData.append("category", data.category)
-    formData.append("image", image)
-    const response = await axios.post(`${url}/api/food/add`, formData)
-    if (response.data.success) {
-      setData({
-        name: "",
-        description: "",
-        price: "",
-        category: "Salad"
-      })
-      setImage(false)
-      toast.success(response.data.message)
-    } else {
-      toast.error(response.data.message)
+    const { name, value } = event.target;
+    setData(prevData => ({ ...prevData, [name]: value }));
+  };
+
+  // Handler for file input changes
+  const onImageChangeHandler = (event) => {
+    const files = Array.from(event.target.files);
+    if (files.length + images.length > 5) {
+      toast.error("Cannot upload more than 5 images.");
+      return;
     }
-  }
+    setImages(prevImages => [...prevImages, ...files]);
+  };
+
+  // Form submission handler
+  const onSubmitHandler = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("description", data.description);
+    formData.append("price", data.price);
+    formData.append("category", data.category);
+    images.forEach(image => {
+      formData.append("images", image);
+    });
+
+    try {
+      const response = await axios.post(`${url}/api/food/add`, formData);
+      if (response.data.success) {
+        setData({
+          name: "",
+          description: "",
+          price: "",
+          category: "Salad"
+        });
+        setImages([]);
+        toast.success(response.data.message);
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      toast.error("Error adding product: " + error.message);
+    }
+  };
+
   return (
     <div className="add">
-      <form action="" className="flex-col" onSubmit={onSubmitHandler}>
+      <form className="flex-col" onSubmit={onSubmitHandler}>
         <div className="add-img-upload flex-col">
-          <p>Upload Image</p>
-          <label htmlFor="image">
-            <img src={image ? URL.createObjectURL(image) : assets.upload_area} alt="" />
+          <p>Upload Images (max 5)</p>
+          <label htmlFor="image-upload">
+            {images.length > 0 ? images.map((image, index) => (
+              <img key={index} src={URL.createObjectURL(image)} alt={`Preview ${index}`} className="uploaded-image" />
+            )) : <img src={assets.upload_area} alt="Upload placeholder" />}
           </label>
-          <input onChange={(e) => setImage(e.target.files[0])} type="file" id="image" hidden required />
+          <input
+            id="image-upload"
+            type="file"
+            onChange={onImageChangeHandler}
+            multiple
+            hidden
+            accept="image/*"
+          />
         </div>
         <div className="add-product-name flex-col">
           <p>Product Name</p>
-          <input onChange={onChangeHandler} value={data.name} type="text" name="name" placeholder="Type here" id="" />
+          <input
+            type="text"
+            name="name"
+            placeholder="Type here"
+            value={data.name}
+            onChange={onChangeHandler}
+          />
         </div>
         <div className="add-product-description flex-col">
           <p>Product Description</p>
-          <textarea type="text" name="description" onChange={onChangeHandler} value={data.description} placeholder="Type here" rows="6" id="" ></textarea>
+          <textarea
+            name="description"
+            placeholder="Type here"
+            rows="6"
+            value={data.description}
+            onChange={onChangeHandler}
+          ></textarea>
         </div>
-        <div className="add-category-price">
-          <div onChange={onChangeHandler} className="add-category flex-col">
+        <div className="add-category-price flex-row">
+          <div className="add-category flex-col">
             <p>Product Category</p>
-            <select name="category" id="">
+            <select name="category" value={data.category} onChange={onChangeHandler}>
               <option value="Salad">Salad</option>
               <option value="Rolls">Rolls</option>
               <option value="Deserts">Deserts</option>
@@ -77,13 +116,19 @@ const Add = () => {
           </div>
           <div className="add-price flex-col">
             <p>Product Price</p>
-            <input type="Number" onChange={onChangeHandler} value={data.price} name='price' placeholder='$20' />
+            <input
+              type="number"
+              name="price"
+              placeholder="$20"
+              value={data.price}
+              onChange={onChangeHandler}
+            />
           </div>
         </div>
-        <button className="add-btn" type='submit'>Add</button>
+        <button className="add-btn" type="submit">Add</button>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default Add
+export default Add;

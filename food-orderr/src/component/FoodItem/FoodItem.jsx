@@ -2,10 +2,18 @@ import React, { useContext } from 'react'
 import "./FoodItem.css"
 import { assets } from '../../assets/assets'
 import { StoreContext } from '../../context/StoreContext'
-const FoodItem = ({ id, name, price, description, image }) => {
+import { useNavigate } from "react-router-dom";
+const FoodItem = ({ id, name, price, image }) => {
+
+    const navigate = useNavigate();
+    const detailFood = (_id) => {
+        navigate(`/food/${_id}`);
+    };
     const { cartItem, addToCart, removeFromCart, url } = useContext(StoreContext)
     return (
-        <div className='food-item'>
+        <div className='food-item group relative bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300'
+            onClick={() => detailFood(id)}
+        >
             <div className="relative h-[250px] overflow-hidden">
                 <img src={url + "image/" + image} alt="" className=' w-full h-full object-cover group-hover:scale-110 transition-transform duration-300 max-h-[350px] h-20' />
                 {!cartItem[id]
@@ -22,9 +30,6 @@ const FoodItem = ({ id, name, price, description, image }) => {
                     <p>{name}</p>
                     <img src={assets.rating_starts} alt="" />
                 </div>
-                <p className="food-item-desc">
-                    {description}
-                </p>
                 <p className="food-item-price">
                     ${price}
                 </p>

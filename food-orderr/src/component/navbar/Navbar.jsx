@@ -3,7 +3,6 @@ import './Navbar.css'
 import { assets } from '../../assets/assets'
 import { Link, useNavigate } from 'react-router-dom'
 import { StoreContext } from '../../context/StoreContext'
-import axios from 'axios'
 import { Mail, Phone, MapPin, ChevronDown, Facebook, Twitter, Youtube, Instagram } from 'lucide-react';
 
 const Navbar = ({ setShowLogin }) => {
@@ -50,12 +49,15 @@ const Navbar = ({ setShowLogin }) => {
                 </div>
             </div>
             <div className='navbar'>
-                <Link to='/'><img src={assets.logo} alt="Logo" className="logo" /></Link>
+                <Link to='/' className="flex items-center gap-2">
+                    <img src={assets.logoaya} alt="Logo" className="logo" />
+                    <span className="text-gray-900 font-semibold text-lg">Ayafood</span>
+                </Link>
                 <div className="navbar-menu">
                     <ul className="flex flex-col lg:flex-row items-center gap-6 p-4 lg:p-0">
-                        <li><a href="/" className="block py-2 text-gray-900 hover:text-[#37A345] font-medium">Homepage</a></li>
-                        <li><a href="#" className="block py-2 text-gray-900 hover:text-[#37A345] font-medium">Abuot us</a></li>
-                        <a href="/menu" className="block py-2 text-gray-900 hover:text-[#37A345] font-medium ">Menu</a>
+                        <li><a href="/" className="block py-2 text-gray-900 hover:text-[#37A345] font-medium">Trang Chủ</a></li>
+                        <li><a href="/about-us" className="block py-2 text-gray-900 hover:text-[#37A345] font-medium">Về chúng tôi</a></li>
+                        <a href="/menu" className="block py-2 text-gray-900 hover:text-[#37A345] font-medium ">Thực đơn</a>
 
                     </ul>
                 </div>

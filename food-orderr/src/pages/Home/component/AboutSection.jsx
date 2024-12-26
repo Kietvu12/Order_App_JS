@@ -53,25 +53,23 @@ export default function AboutSection() {
                     </div>
                 </div>
 
-                {/* Right Column - Content */}
+
                 <div className="space-y-6">
-                    <span className="text-[#FF6B00] font-medium">About Us</span>
+                    <span className="text-[#FF6B00] font-medium">Về chúng tôi</span>
 
                     <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
-                        The Best Enjoyable Place Around You.
+                        Nuôi dưỡng cuộc sống thuần tự nhiên:
                     </h2>
+
 
                     <div className="space-y-4 text-gray-600">
                         <p>
-                            We are the best quality elementum integer enim neque volutpat ac. Morbi enim
-                            nunc faucibus a. Amet consectetur adipiscing elit duis tempus pharetra.
+                            Hành trình từ cảm hứn  g đến hiện thực
+
                         </p>
                         <p>
-                            Massa placerat duis ultricies lacus sed turpis tincidunt id. Interdum varius sit amet mattis
-                            enim. Quis hendrerit dolor magna eget est lorem ipsum dolor. Sagittis scelerisque purus
-                            semper eget duis. Viverra maecenas accumsan lacus vel facilisis volutpat est. Ultricies
-                            lacus sed turpis tincidunt id aliquet risus feugiat in. Adipiscing elit duis tristique sollicitudin
-                            nibh sit. Porttitor lacus luctus accumsan tortor.
+                            Khi cuộc sống ngày càng hối hả, con người dần nhận ra rằng sức khỏe và tinh thần chỉ có thể thực sự bền vững khi trở về với những giá trị tự nhiên. Chính trong dòng chảy này, AYA Food ra đời như một lời nhắc nhở dịu dàng về việc yêu thương bản thân và nuôi dưỡng cơ thể bằng những thực phẩm thuần chay, tự nhiên và lành mạnh.
+
                         </p>
                     </div>
 

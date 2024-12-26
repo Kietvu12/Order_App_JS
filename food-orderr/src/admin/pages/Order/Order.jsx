@@ -13,7 +13,7 @@ const Order = ({url}) => {
     const response = await axios.get("http://localhost:4000/api/order/list")
     if (response.data.success) {
       setOrders(response.data.data)
-      console.log(response.data.data)
+
     } else {
       toast.error("Error")
     }

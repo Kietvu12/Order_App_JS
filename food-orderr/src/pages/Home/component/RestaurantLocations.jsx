@@ -48,13 +48,12 @@ export default function RestaurantLocations() {
 
                     <div className="space-y-4">
                         <p className="text-gray-600">
-                            All in good taste elementum integer enim neque volutpat ac. Morbi enim nunc
-                            faucibus a. Amet consectetur adipiscing elit duis tempus urna et pharetra.
+                            Không chỉ dừng lại ở việc cung cấp thực phẩm, AYA Food mong muốn trở thành một cộng đồng nơi mọi người có thể chia sẻ kiến thức, công thức nấu ăn, và cùng nhau lan tỏa lối sống thuần chay. Trong năm 2025, chúng tôi sẽ phát triển thêm các nội dung trên mạng xã hội để cùng bạn khám phá những câu chuyện thú vị về thực phẩm và cảm hứng sống khỏe.
                         </p>
 
                         <p className="text-gray-600">
-                            Sagittis scelerisque purus semper eget duis. Viverra maecenas accumsan lacus vel
-                            facilisis volutpat est. Ultricies lacus sed turpis tincidunt id aliquet risus feugiat in.
+                            Hãy cùng chúng tôi, với từng bữa ăn thuần chay lành mạnh, tạo dựng một cuộc sống khỏe mạnh hơn, ý nghĩa hơn, và góp phần bảo vệ hành tinh của chúng ta. AYA Food luôn sẵn sàng đồng hành cùng bạn trên hành trình nuôi dưỡng cuộc sống thuần tự nhiên!
+
                         </p>
                     </div>
 

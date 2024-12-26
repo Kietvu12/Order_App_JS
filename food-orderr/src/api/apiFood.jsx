@@ -16,11 +16,10 @@ const ApiFood = {
         }
     },
 
-    // Lấy danh sách món ăn
+
     listFood: async () => {
         try {
             const response = await axios.get(`${API_URL}/list`);
-            console.log("dattaa", response.data)
             return response.data;
 
         } catch (error) {
