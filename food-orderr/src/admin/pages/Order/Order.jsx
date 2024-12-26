@@ -10,7 +10,7 @@ const Order = ({ url }) => {
   const [orders, setOrders] = useState([])
 
   const fetchAllOrders = async () => {
-    const response = await axios.get("http://localhost:4000/api/order/list")
+    const response = await axios.get("https://ayafood.vn/api/order/list")
     if (response.data.success) {
       setOrders(response.data.data)
 
@@ -19,7 +19,7 @@ const Order = ({ url }) => {
     }
   }
   const statusHandler = async (event, orderId) => {
-    const response = await axios.post("http://localhost:4000/api/order/status", {
+    const response = await axios.post("https://ayafood.vn/api/order/status", {
       orderId,
       status: event.target.value
     })

@@ -5,7 +5,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const Add = () => {
-  const url = "http://localhost:4000";
+  const url = "https://ayafood.vn";
   const [images, setImages] = useState([]); // State to hold the uploaded images
   const [data, setData] = useState({
     name: "",
