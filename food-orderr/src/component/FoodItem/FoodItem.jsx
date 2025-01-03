@@ -1,41 +1,75 @@
+/* eslint-disable react/prop-types */
 import React, { useContext } from 'react'
-import "./FoodItem.css"
-import { assets } from '../../assets/assets'
 import { StoreContext } from '../../context/StoreContext'
-import { useNavigate } from "react-router-dom";
-const FoodItem = ({ id, name, price, image }) => {
+import { useNavigate } from "react-router-dom"
+import { MinusIcon, PlusIcon, StarIcon } from 'lucide-react'
 
-    const navigate = useNavigate();
-    const detailFood = (_id) => {
-        navigate(`/food/${_id}`);
-    };
+
+const FoodItem = ({ id, name, price, image }) => {
+    const navigate = useNavigate()
     const { cartItem, addToCart, removeFromCart, url } = useContext(StoreContext)
+
+    const detailFood = (_id) => {
+        navigate(`/food/${_id}`)
+    }
+
+    const handleAddToCart = (e) => {
+        e.stopPropagation()
+        addToCart(id)
+    }
+
+    const handleRemoveFromCart = (e) => {
+        e.stopPropagation()
+        removeFromCart(id)
+    }
+
     return (
-        <div className='food-item group relative bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300'
+        <div
+            className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl transform hover:-translate-y-1 cursor-pointer"
             onClick={() => detailFood(id)}
         >
-            <div className="relative h-[250px] overflow-hidden">
-                <img src={url + "image/" + image} alt="" className=' w-full h-full object-cover group-hover:scale-110 transition-transform duration-300 max-h-[350px] h-20' />
-                {!cartItem[id]
-                    ? <img className='absolute bottom-2 right-2 cursor-pointer w-[35px]' onClick={() => addToCart(id)} src={assets.add_icon_white} alt='' />
-                    : <div className='food-item-counter'>
-                        <img onClick={() => removeFromCart(id)} src={assets.remove_icon_red} alt="" />
-                        <p>{cartItem[id]}</p>
-                        <img onClick={() => addToCart(id)} src={assets.add_icon_green} alt="" />
-                    </div>
-                }
-            </div>
-            <div className="food-item-info">
-                <div className="food-item-name-rating">
-                    <p>{name}</p>
-                    <img src={assets.rating_starts} alt="" />
+            <div className="relative">
+                <img
+                    src={url + "image/" + image}
+                    alt={name}
+                    className="w-full h-48 object-cover"
+                />
+                <div className="absolute top-0 left-0 m-2 bg-orange-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+                    ${price.toFixed(2)}
                 </div>
-                <p className="food-item-price">
-                    ${price}
-                </p>
+            </div>
+            <div className="p-4">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2 truncate">{name}</h3>
+
+                {!cartItem[id] ? (
+                    <button
+                        className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 flex items-center justify-center"
+                        onClick={handleAddToCart}
+                    >
+                        <PlusIcon className="h-5 w-5 mr-2" />
+                        Add to Cart
+                    </button>
+                ) : (
+                    <div className="flex items-center justify-between bg-gray-100 rounded-full">
+                        <button
+                            className="p-2 text-orange-500 hover:text-orange-600 transition-colors duration-200"
+                            onClick={handleRemoveFromCart}
+                        >
+                            <MinusIcon className="h-5 w-5" />
+                        </button>
+                        <span className="font-semibold text-gray-700">{cartItem[id]}</span>
+                        <button
+                            className="p-2 text-orange-500 hover:text-orange-600 transition-colors duration-200"
+                            onClick={handleAddToCart}
+                        >
+                            <PlusIcon className="h-5 w-5" />
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
     )
 }
 
 export default FoodItem
+
